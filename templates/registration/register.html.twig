@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% form_theme registrationForm 'forms/theme.html.twig' %}
+
+{% block title %}Register{% endblock %}
+
+{% block body %}
+    {{ form_start(registrationForm, {attr: {class: 'form-signin', novalidate: true}}) }}
+        <h1 class="h3 mb-3 font-weight-normal">Sign up</h1>
+
+        {{ form_errors(registrationForm) }}
+
+        {{ form_row(registrationForm.email) }}
+        {{ form_row(registrationForm.plainPassword) }}
+        {{ form_row(registrationForm.agreeTerms) }}
+
+        <button class="btn btn-lg btn-primary btn-block mb-3" type="submit">Sign up</button>
+        <div class="text-right">
+            or <a href="{{ path('app_login') }}">Login</a> instead
+        </div>
+    {{ form_end(registrationForm) }}
+{% endblock %}

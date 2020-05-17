@@ -1,0 +1,71 @@
+{% use "form_div_layout.html.twig" %}
+
+{%- macro get_error_collection_from_form(form) -%}
+    {%- if form.vars.errors is defined and form.vars.errors|length > 0 -%}
+        {%- for error in form.vars.errors -%}
+            <li>{{- error.message -}}</li>
+        {%- endfor -%}
+    {%- endif -%}
+    {%- if form.children|length -%}
+        {% for child in form.children %}
+            {{- _self.get_error_collection_from_form(child) -}}
+        {% endfor %}
+    {%- else -%}
+        {%- if form.vars.errors is defined and form.vars.errors|length > 0 -%}
+            {%- for error in form.vars.errors -%}
+                <li>{{- error.message -}}</li>
+            {%- endfor -%}
+        {%- endif -%}
+    {%- endif -%}
+{%- endmacro -%}
+
+{% block form_row %}
+    {% set row_attr = { class: 'form-group' } %}
+    {%- set widget_attr = {} -%}
+    {%- if help is not empty -%}
+        {%- set widget_attr = {attr: {'aria-describedby': id ~"_help"}} -%}
+    {%- endif -%}
+    <div{% with {attr: row_attr} %}{{ block('attributes') }}{% endwith %}>
+        {%- set type = form.type|default('text') -%}
+        {{- form_label(form) -}}
+        {{- form_widget(form, widget_attr) -}}
+        {{- form_help(form) -}}
+    </div>
+{% endblock %}
+
+{%- block form_widget_simple -%}
+    {% set attr = attr|merge({class: 'form-control ' ~ attr.class|default('') }) %}
+    {{ parent() }}
+{%- endblock form_widget_simple -%}
+
+{% block form_errors %}
+    {% set errorContent = _self.get_error_collection_from_form(form) %}
+    {% if errorContent|length %}
+        <ul class="error-panel alert alert-danger">{{ errorContent }}</ul>
+    {% endif %}
+{% endblock %}
+
+{% block user_answer_row %}
+    <div class="mb-5">
+        {{ form_row(form) }}
+    </div>
+{% endblock %}
+
+{% block user_answer_label %}
+    <h3>
+        {{ form_label(form) }}
+    </h3>
+{% endblock %}
+
+{%- block answers_weight_widget -%}
+    <div class="row">
+        {%- for child in form %}
+            <div class="col-sm">
+                <div>
+                    {{- form_widget(child) -}}
+                </div>
+                {{- form_label(child, null, {translation_domain: choice_translation_domain}) -}}
+            </div>
+        {% endfor -%}
+    </div>
+{%- endblock answers_weight_widget -%}

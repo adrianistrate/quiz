@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% form_theme quizForm 'forms/theme.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        {{ form_start(quizForm, {attr: {novalidate: true}}) }}
+
+        {{ form_widget(quizForm) }}
+
+        <input type="submit" class="btn btn-primary float-right" value="Submit" />
+        </form>
+    </div>
+{% endblock %}

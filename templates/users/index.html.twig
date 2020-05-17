@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        Users
+
+        <table
+                id="table"
+                data-toggle="table"
+                data-url="{{ path('users_data') }}"
+                data-pagination="true"
+                data-page-size="10"
+                data-sortable="true"
+                data-side-pagination="server"
+                data-total-field="count"
+                data-data-field="items"
+        >
+            <thead>
+                <tr>
+                    <th data-field="id" data-sortable="true">ID</th>
+                    <th data-field="email" data-sortable="true">Email</th>
+                    <th data-field="survey_completed" data-sortable="true">Has Completed Survey</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+{% endblock %}

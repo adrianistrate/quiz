@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        Stats
+
+        <div id="container">
+            <canvas id="chart-stats-canvas" data-labels="{{ stats.labels|json_encode }}" data-sets="{{ stats.sets|json_encode }}"></canvas>
+        </div>
+    </div>
+{% endblock %}
