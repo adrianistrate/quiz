@@ -15,16 +15,22 @@ After cloning run:
 $ symfony composer install
 ```
 
-```bash
-$ yarn install
-```
+Create a database, edit **.env** then run:
 
 ```bash
 $ symfony console doctrine:schema:update --force
 ```
 
 ```bash
-$ symfony doctrine:fixtures:load
+$ symfony console doctrine:fixtures:load --env=dev
+```
+
+```bash
+$ yarn install
+```
+
+```bash
+$ yarn encore prod
 ```
 
 ### Admin
